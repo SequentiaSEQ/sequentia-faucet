@@ -2,10 +2,10 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <meta name="description" content="Liquidtestnet.com">
+      <meta name="description" content="Sequentia testnet">
       <meta name="author" content="Valerio Vaccaro">
       <link rel="icon" href="">
-      <title>Liquid testnet</title>
+      <title>Sequentia testnet</title>
       <link href="/static/bootstrap.min.css" rel="stylesheet">
       <link href="/static/base.css" rel="stylesheet">
       <script src="/static/jquery.min.js"></script>
@@ -19,9 +19,7 @@
               <a class="navbar-brand" href="/explorer">Explorer</a>
               <a class="navbar-brand" href="/mempool">Mempool</a>
               <a class="navbar-brand" href="/faucet">Faucet</a>
-              <a class="navbar-brand" href="/issuer">Issuer</a>
               <a class="navbar-brand" href="/utils">Utils</a>
-              <a class="navbar-brand" href="https://liquidwebwallet.org/testnet/" target="_blank">Liquid Web Wallet</a>
               <a class="navbar-brand" href="/about">About</a>
             </div>
          </div>
@@ -45,7 +43,7 @@
                 <tbody>
                   {{#blocks_list}}
                   <tr>
-		    <td><a href="block?height={{id}}">{{id}}</a> <a href="https://blockstream.info/liquidtestnet/{{id}}" target="_blank">On Esplora</a> </td>
+		    <td><a href="block?height={{id}}">{{id}}</a> <a href="http://explorer.sequentia.io/testnet/{{id}}" target="_blank">On Esplora</a> </td>
                     <td>{{hash}}</td>
                     <td>{{size}}</td>
                     <td>{{time}}</td>

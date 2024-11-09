@@ -2,10 +2,10 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <meta name="description" content="Liquidtestnet.com">
+      <meta name="description" content="Sequentia testnet">
       <meta name="author" content="Valerio Vaccaro">
       <link rel="icon" href="">
-      <title>Liquid testnet</title>
+      <title>Sequentia testnet</title>
       <link href="/static/bootstrap.min.css" rel="stylesheet">
       <link href="/static/base.css" rel="stylesheet">
       <script src="/static/jquery.min.js"></script>
@@ -19,9 +19,7 @@
               <a class="navbar-brand" href="/explorer">Explorer</a>
               <a class="navbar-brand" href="/mempool">Mempool</a>
               <a class="navbar-brand" href="/faucet">Faucet</a>
-              <a class="navbar-brand" href="/issuer">Issuer</a>
               <a class="navbar-brand" href="/utils">Utils</a>
-              <a class="navbar-brand" href="https://liquidwebwallet.org/testnet/" target="_blank">Liquid Web Wallet</a>
               <a class="navbar-brand" href="/about">About</a>
             </div>
          </div>
@@ -31,29 +29,21 @@
          <div id="sl">
             <br/><br/>
             <div class="well">
-               <h3>What is Liquid testnet?</h3>
-               It's a testnet for the Liquid sidechain. 
+               <h3>What is Sequentia testnet?</h3>
+               It's a testnet for the Sequentia sidechain.
 
                <h3>How to join?</h3>
                <pre>
-chain=liquidtestnet
+chain=test
 
-# Liquid Testnet (liquidtestnet) settings:
-[liquidtestnet]
-
-# General settings:
+[test]
 daemon=1
 server=1
 listen=1
 txindex=1
-addnode=liquid.network:18444
-addnode=liquid-testnet.blockstream.com:18891
-addnode=liquidtestnet.com:18891
-
-# liquidtestnet RPC settings (local RPC calls - optional):
-rpcuser=user
-rpcpassword=password
-rpcport=18891
+defaultpeggedassetname=testcoin
+blindedaddresses=1
+walletrbf=1
             </pre>
 	       <p>Or use <a href="/home_old"> this configs</a> for old elements nodes (before 22.1.1).</p>
                <h3>Statistics</h3>

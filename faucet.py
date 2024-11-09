@@ -2,6 +2,7 @@ from flask import (
     Flask,
     request,
     jsonify,
+    send_from_directory,
 )
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -60,6 +61,12 @@ else:
 host = RPCHost(serverURL)
 if (len(rpcPassphrase) > 0):
     result = host.call('walletpassphrase', rpcPassphrase, 60)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon'
+    )
 
 @app.route('/robots.txt')
 def noindex():
@@ -250,8 +257,6 @@ def url_transaction():
 
 
 def faucet(address, amount):
-    if (address == "tlq1qqtqzkja0rptmvsz5gs0jz47c2x7wjlcmqfj4h8vpu3v6qxe9lc08walamcf8e8s0qlwtzkfyylevz2wknycx75gx2scx9fl67"):
-        return ""     
     if host.call('validateaddress', address)['isvalid']:
         # Call LWK
         update = client.full_scan(wollet)
@@ -271,23 +276,21 @@ def faucet(address, amount):
     return data
 
 
-def faucet_test(address, amount):
-    if (address == "tlq1qqtqzkja0rptmvsz5gs0jz47c2x7wjlcmqfj4h8vpu3v6qxe9lc08walamcf8e8s0qlwtzkfyylevz2wknycx75gx2scx9fl67"):
-        return ""
+def faucet_asset(address, amount, asset):
     if host.call('validateaddress', address)['isvalid']:
         # Call LWK
         update = client.full_scan(wollet)
         wollet.apply_update(update)
         builder = network.tx_builder()
         builder.add_recipient(Address(
-            address), amount, "38fca2d939696061a8f76d4e6b5eecd54e3b4221c846f24a6b279e79952850a5")
+            address), amount, asset)
         unsigned_pset = builder.finish(wollet)
         signed_pset = signer.sign(unsigned_pset)
 
         finalized_pset = wollet.finalize(signed_pset)
         tx = finalized_pset.extract_tx()
         txid = client.broadcast(tx)
-        data = "Sent " + str(amount) + " TEST to address " + \
+        data = "Sent " + str(amount) + " " + asset + " to address " + \
             address + " with transaction " + str(txid) + "."
     else:
         data = "Error"
@@ -315,93 +318,87 @@ def faucet_amp(gaid, amount):
 @app.route('/api/faucet', methods=['GET'])
 @limiter.limit('100/day;10/hour;3/minute')
 def api_faucet():
-    balance_amp = subprocess.run(
-        ["./green_cli/balance.sh", "bea126b86ac7f7b6fc4709d1bb1a8482514a68d35633a5580d50b18504d5c322"], capture_output=True).stdout
     balance = wollet.balance().get(network.policy_asset(), 0)
-    balance_test = wollet.balance().get(
-        '38fca2d939696061a8f76d4e6b5eecd54e3b4221c846f24a6b279e79952850a5', 0)
+    balance_aapl = wollet.balance().get(
+        'f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891', 0)
+    balance_tsla = wollet.balance().get(
+        'be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b', 0)
+    balance_mstr = wollet.balance().get(
+        '5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a', 0)
+    balance_usdt = wollet.balance().get(
+        '087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e', 0)
     address = request.args.get('address')
     asset = request.args.get('action')
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     if address is None:
         data = {'result': 'missing address', 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         return jsonify(data)
 
     if address in used_addresses:
         data = {'result': 'address reuse', 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         return jsonify(data)
     else:
         used_addresses.append(address)
 
     if asset == 'lbtc':
-        amount = 100000
+        amount = 100000000
         data = {'result': faucet(address, amount), 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
-    elif asset == 'test':
-        amount = 5000
-        data = {'result_test': faucet_test(
-            address, amount), 'balance': balance, 'balance_test': balance_test, 'balance_amp': balance_amp}
-    elif asset == 'amp':
-        amount = 1
-        data = {'result_amp': faucet_amp(
-            address, amount), 'balance': balance, 'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
+    else:
+        amount = 1000000
+        data = {'result_test': faucet_asset(
+            address, amount, asset), 'balance': balance,
+            'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
     return jsonify(data)
 
 
 @app.route('/faucet', methods=['GET'])
 @limiter.limit('100/day;10/hour;3/minute')
 def url_faucet():
-    balance_amp = subprocess.run(
-        ["./green_cli/balance.sh", "bea126b86ac7f7b6fc4709d1bb1a8482514a68d35633a5580d50b18504d5c322"], capture_output=True).stdout
     balance = wollet.balance().get(network.policy_asset(), 0)
-    balance_test = wollet.balance().get(
-        '38fca2d939696061a8f76d4e6b5eecd54e3b4221c846f24a6b279e79952850a5', 0)
+    balance_aapl = wollet.balance().get(
+        'f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891', 0)
+    balance_tsla = wollet.balance().get(
+        'be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b', 0)
+    balance_mstr = wollet.balance().get(
+        '5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a', 0)
+    balance_usdt = wollet.balance().get(
+        '087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e', 0)
     address = request.args.get('address')
     asset = request.args.get('action')
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
 
     if address is None:
         data = {'result': 'missing address', 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = True
         data['form_test'] = True
-        data['form_amp'] = True
         return render_template('faucet', **data)
 
     if address in used_addresses:
         data = {'result': 'address reuse', 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = False
         data['form_test'] = True
-        data['form_amp'] = True
         return render_template('faucet', **data)
     else:
         used_addresses.append(address)
 
     if asset == 'lbtc':
-        amount = 100000
+        amount = 100000000
         data = {'result': faucet(address, amount), 'balance': balance,
-                'balance_test': balance_test, 'balance_amp': balance_amp}
+                'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = False
         data['form_test'] = True
-        data['form_amp'] = True
-    elif asset == 'test':
-        amount = 5000
-        data = {'result_test': faucet_test(
-            address, amount), 'balance': balance, 'balance_test': balance_test, 'balance_amp': balance_amp}
+    else:
+        amount = 1000000
+        data = {'result_test': faucet_asset(
+            address, amount, asset), 'balance': balance, 'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = True
         data['form_test'] = False
-        data['form_amp'] = True
-    elif asset == 'amp':
-        amount = 0.00000001
-        data = {'result_amp': faucet_amp(
-            address, amount), 'balance': balance, 'balance_test': balance_test, 'balance_amp': balance_amp}
-        data['form'] = True
-        data['form_test'] = True
-        data['form_amp'] = False
     return render_template('faucet', **data)
 
 
