@@ -262,14 +262,14 @@ def faucet(address, amount):
         update = client.full_scan(wollet)
         wollet.apply_update(update)
         builder = network.tx_builder()
-        builder.add_lbtc_recipient(Address(address), amount)
+        builder.add_testcoin_recipient(Address(address), amount)
         unsigned_pset = builder.finish(wollet)
         signed_pset = signer.sign(unsigned_pset)
 
         finalized_pset = wollet.finalize(signed_pset)
         tx = finalized_pset.extract_tx()
         txid = client.broadcast(tx)
-        data = "Sent " + str(amount) + " LBTC to address " + \
+        data = "Sent " + str(amount) + " testcoin to address " + \
             address + " with transaction " + str(txid) + "."
     else:
         data = "Error"
@@ -343,13 +343,16 @@ def api_faucet():
     else:
         used_addresses.append(address)
 
-    if asset == 'lbtc':
+    if asset == 'testcoin':
         amount = 100000000
         data = {'result': faucet(address, amount), 'balance': balance,
                 'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
     else:
-        amount = 1000000
-        data = {'result_test': faucet_asset(
+        if asset == '087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e':
+            amount = 1000000000
+        else:
+            amount = 1000000
+        data = {asset: faucet_asset(
             address, amount, asset), 'balance': balance,
             'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
     return jsonify(data)
@@ -387,15 +390,18 @@ def url_faucet():
     else:
         used_addresses.append(address)
 
-    if asset == 'lbtc':
+    if asset == 'testcoin':
         amount = 100000000
         data = {'result': faucet(address, amount), 'balance': balance,
                 'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = False
         data['form_test'] = True
     else:
-        amount = 1000000
-        data = {'result_test': faucet_asset(
+        if asset == '087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e':
+            amount = 100000000
+        else:
+            amount = 1000000
+        data = {asset: faucet_asset(
             address, amount, asset), 'balance': balance, 'balance_aapl': balance_aapl, 'balance_tsla': balance_tsla, 'balance_mstr': balance_mstr, 'balance_usdt': balance_usdt}
         data['form'] = True
         data['form_test'] = False
