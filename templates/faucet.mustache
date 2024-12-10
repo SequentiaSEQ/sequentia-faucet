@@ -28,120 +28,96 @@
          <div id="sl">
             <br/><br/>
             <div class="well">
-               <h3>Faucet TESTCOIN</h3>
-               <p>Balance: {{balance}} sats.</p>
-               {{^form}}
-               <p>{{result}}</p>
-               {{/form}}
-               {{#form}}
-               <form action="/faucet" method="get">
-                   <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                         <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
-                      </div>
-                   </div>
-                   <div class="form-group row">
-                      <div class="col-sm-10">
-                         <button type="submit" class="btn btn-danger" name="action" value="testcoin">Send assets</button>
-                      </div>
-                   </div>
-                </form>
-                {{/form}}
-
-	       <h3>Faucet AAPL asset</h3>
-	       <p>AAPL (asset id f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891) is a Sequentia testnet asset.</p>
-               <p>Balance: {{balance_aapl}} sats.</p>
-               {{^form_test}}
-               <p>{{f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891}}</p>
-               {{/form_test}}
-               {{#form_test}}
-               <form action="/faucet" method="get">
-                   <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                         <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
-                      </div>
-                   </div>
-                   <div class="form-group row">
-                      <div class="col-sm-10">
-                         <button type="submit" class="btn btn-danger" name="action" value="f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891">Send assets</button>
-                      </div>
-                   </div>
-                </form>
-                {{/form_test}}
-                <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
-
-	       <h3>Faucet TSLA asset</h3>
-          <p> TSLA (asset id be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b) is a Sequentia testnet asset.</p>
-               <p>Balance: {{balance_tsla}} sats.</p>
-               {{^form_test}}
-               <p>{{be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b}}</p>
-               {{/form_test}}
-               {{#form_test}}
-               <form action="/faucet" method="get">
-                   <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                         <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
-                      </div>
-                   </div>
-                   <div class="form-group row">
-                      <div class="col-sm-10">
-                         <button type="submit" class="btn btn-danger" name="action" value="be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b">Send assets</button>
-                      </div>
-                   </div>
-                </form>
-                {{/form_test}}
-                <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
-
-          <h3>Faucet MSTR asset</h3>
-          <p> MSTR (asset id 5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a) is a Sequentia testnet asset.</p>
-               <p>Balance: {{balance_mstr}} sats.</p>
-               {{^form_test}}
-               <p>{{5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a}}</p>
-               {{/form_test}}
-               {{#form_test}}
-               <form action="/faucet" method="get">
-                   <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                         <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
-                      </div>
-                   </div>
-                   <div class="form-group row">
-                      <div class="col-sm-10">
-                         <button type="submit" class="btn btn-danger" name="action" value="5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a">Send assets</button>
-                      </div>
-                   </div>
-                </form>
-                {{/form_test}}
-                <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
-          <h3>Faucet USDt asset</h3>
-          <p> USDt (asset id 087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e) is a Sequentia testnet asset.</p>
-	            <p>Balance: {{balance_usdt}} sats.</p>
-               {{^form_test}}
-               <p>{{087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e}}</p>
-               {{/form_test}}
-               {{#form_test}}
-               <form action="/faucet" method="get">
-                   <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                         <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
-                      </div>
-                   </div>
-                   <div class="form-group row">
-                      <div class="col-sm-10">
-                         <button type="submit" class="btn btn-danger" name="action" value="087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e">Send assets</button>
-                      </div>
-                   </div>
-                </form>
-                {{/form_test}}
-                <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
+               <h3>Faucet AAPL asset</h3>
+               <p>AAPL (asset id f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891) is a Sequentia testnet asset.</p>
+                     <p>Balance: {{balance_aapl}} sats.</p>
+                     {{^form_test}}
+                     <p>{{f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891}}</p>
+                     {{/form_test}}
+                     {{#form_test}}
+                     <form action="/faucet" method="get">
+                        <div class="form-group row">
+                           <label for="address" class="col-sm-2 col-form-label">Address</label>
+                           <div class="col-sm-10">
+                              <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <div class="col-sm-10">
+                              <button type="submit" class="btn btn-danger" name="action" value="f0a5e199e1fc59a0b422908e6e52dd3a3c0fdb66dccb02344dc6d00c8d583891">Send assets</button>
+                           </div>
+                        </div>
+                     </form>
+                     {{/form_test}}
+                     <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
+               <h3>Faucet TSLA asset</h3>
+               <p> TSLA (asset id be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b) is a Sequentia testnet asset.</p>
+                     <p>Balance: {{balance_tsla}} sats.</p>
+                     {{^form_test}}
+                     <p>{{be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b}}</p>
+                     {{/form_test}}
+                     {{#form_test}}
+                     <form action="/faucet" method="get">
+                        <div class="form-group row">
+                           <label for="address" class="col-sm-2 col-form-label">Address</label>
+                           <div class="col-sm-10">
+                              <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <div class="col-sm-10">
+                              <button type="submit" class="btn btn-danger" name="action" value="be84cb524f4bfafffc826aa248184b4b04438100f5123c673fc57a310675d10b">Send assets</button>
+                           </div>
+                        </div>
+                     </form>
+                     {{/form_test}}
+                     <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
+               <h3>Faucet MSTR asset</h3>
+               <p> MSTR (asset id 5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a) is a Sequentia testnet asset.</p>
+                     <p>Balance: {{balance_mstr}} sats.</p>
+                     {{^form_test}}
+                     <p>{{5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a}}</p>
+                     {{/form_test}}
+                     {{#form_test}}
+                     <form action="/faucet" method="get">
+                        <div class="form-group row">
+                           <label for="address" class="col-sm-2 col-form-label">Address</label>
+                           <div class="col-sm-10">
+                              <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <div class="col-sm-10">
+                              <button type="submit" class="btn btn-danger" name="action" value="5b8e0abceb24b3a6773a0e01467cd45d99c34ba540b58a9e43823a20d91ec74a">Send assets</button>
+                           </div>
+                        </div>
+                     </form>
+                     {{/form_test}}
+                     <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
+               <h3>Faucet USDt asset</h3>
+               <p> USDt (asset id 087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e) is a Sequentia testnet asset.</p>
+                     <p>Balance: {{balance_usdt}} sats.</p>
+                     {{^form_test}}
+                     <p>{{087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e}}</p>
+                     {{/form_test}}
+                     {{#form_test}}
+                     <form action="/faucet" method="get">
+                        <div class="form-group row">
+                           <label for="address" class="col-sm-2 col-form-label">Address</label>
+                           <div class="col-sm-10">
+                              <input type="text" class="form-control" name="address" required="required" id="address" placeholder="address">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <div class="col-sm-10">
+                              <button type="submit" class="btn btn-danger" name="action" value="087041e37fbdcb53289737750636a8e7533f506814f2956e8c413f638367257e">Send assets</button>
+                           </div>
+                        </div>
+                     </form>
+                     {{/form_test}}
+                     <p>You can send back unused coins at the address <b>tsqb1qqd8vp9n7cqw57w7cw2ujtpvfyq6fl7pf95f99mf9vd7fc7hwz202gzksmjjt9xhuqcucjqn5sd6qch9mfs5ru7260uqsrlz85</b>.</p>
+            </div>
          </div>
-         </div>
-      </div>
       </div>
    </body>
 </html>
